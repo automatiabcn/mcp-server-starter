@@ -1,0 +1,50 @@
+{
+  "name": "mcp-server-starter",
+  "version": "1.0.0",
+  "description": "A minimal, production-ready Model Context Protocol (MCP) server template in TypeScript. stdio + StreamableHTTP transports, typed tools with Zod, example resource & prompt, tests, and CI. Clone it and ship your own MCP server in minutes.",
+  "type": "module",
+  "bin": {
+    "mcp-server-starter": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "start:http": "MCP_TRANSPORT=http node dist/index.js",
+    "test": "node --test --import tsx ./test/*.test.ts",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "modelcontextprotocol",
+    "template",
+    "starter",
+    "boilerplate",
+    "ai",
+    "claude",
+    "cursor",
+    "llm-tools"
+  ],
+  "author": "Automatia BCN (https://automatiabcn.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enzoemir1/mcp-server-starter.git"
+  },
+  "homepage": "https://automatiabcn.com",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
