@@ -50,8 +50,19 @@ async function runHttp(): Promise<void> {
       });
       await server.connect(transport);
 
+      // Bound the request body so an unbounded/malicious payload can't exhaust
+      // memory. 4 MiB is generous for JSON-RPC; raise it if your tools need it.
+      const MAX_BODY_BYTES = 4 * 1024 * 1024;
       let body = '';
-      for await (const chunk of req) body += chunk;
+      let size = 0;
+      for await (const chunk of req) {
+        size += (chunk as Buffer).length;
+        if (size > MAX_BODY_BYTES) {
+          res.writeHead(413).end('Payload too large');
+          return;
+        }
+        body += chunk;
+      }
       await transport.handleRequest(req, res, body ? JSON.parse(body) : undefined);
     } catch (err) {
       console.error('Request error:', err);
